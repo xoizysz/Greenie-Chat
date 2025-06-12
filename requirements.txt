@@ -1,0 +1,17 @@
+sentence-transformers==2.2.2
+langchain
+flask
+pypdf
+python-dotenv
+pinecone[grpc]
+langchain-pinecone
+langchain_community
+langchain_openai
+langchain_experimental
+
+overrides>=7.3.1
+websocket-client!=0.40.0,!=0.41.*,!=0.42.*,>=0.32.0
+deprecated>=1.2.6
+protobuf<5.0,>=3.19  # Downgrade from 5.x to avoid breakage
+
+-e .
