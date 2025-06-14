@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Greenie Chat</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="background-noise"></div>
+
+  <div class="container">
+    <!-- Welcome Screen -->
+    <div id="welcome-screen">
+      <h1>Greenie Chat!</h1>
+      <p class="subtitle">Your Climate Buddy on Text</p>
+      <p class="desc">
+        Learn about renewable energy, eco-friendly habits and climate change.<br>
+        All in a fun and friendly conversation.<br>
+        No jargon, no pressure. Just real talk, real impact.
+      </p>
+      <img src="/static/greenie.png" alt="Greenie Bot" class="bot-img welcome-img">
+      <div class="divider"></div>
+      <button onclick="startChat()">Let's chat!</button>
+    </div>
+
+    <!-- Chat Screen -->
+    <div id="chat-screen" style="display: none;">
+      <h1>Greenie Chat!</h1>
+      <img src="/static/greenie.png" alt="Greenie Bot" class="bot-img chat-img">
+      
+      <div id="sample-questions" class="quick-questions">
+        <button onclick="sendQuick('Help me learn about climate change!')">
+          Help me learn about climate change!
+        </button>
+        <button onclick="sendQuick('What is carbon footprint?')">
+          What is carbon footprint?
+        </button>
+        <button onclick="sendQuick('How can I go green today?')">
+          How can I go green today?
+        </button>
+      </div>
+
+      <div class="chat-scroll-container">
+        <div class="chat-box" id="chat-box"></div>
+      </div>
+
+      <div class="divider"></div>
+      
+      <form id="chat-form">
+        <input type="text" id="user-input" placeholder="Type a message..." autocomplete="off" />
+        <button type="submit">➤</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function startChat() {
+      document.getElementById("welcome-screen").style.display = "none";
+      document.getElementById("chat-screen").style.display = "flex";
+    }
+
+    function hideSampleQuestions() {
+      const sampleDiv = document.getElementById("sample-questions");
+      if (sampleDiv) {
+        sampleDiv.style.display = "none";
+      }
+    }
+
+    function sendQuick(text) {
+      document.getElementById("user-input").value = text;
+      hideSampleQuestions();
+      document.getElementById("chat-form").dispatchEvent(new Event('submit'));
+    }
+
+    document.getElementById("chat-form").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      const input = document.getElementById("user-input");
+      const chatBox = document.getElementById("chat-box");
+
+      const userMsg = input.value.trim();
+      if (!userMsg) return;
+
+      hideSampleQuestions();
+
+      // Add user message
+      const userDiv = document.createElement("div");
+      userDiv.className = "user-msg";
+      userDiv.textContent = userMsg;
+      chatBox.appendChild(userDiv);
+      input.value = "";
+
+      // Fetch bot response
+      const response = await fetch("/get", {
+        method: "POST",
+        body: new URLSearchParams({ msg: userMsg })
+      });
+      const botText = await response.text();
+
+      // Add bot response
+      const botDiv = document.createElement("div");
+      botDiv.className = "bot-msg";
+      botDiv.textContent = botText;
+      chatBox.appendChild(botDiv);
+
+      // Auto-scroll to bottom
+      chatBox.scrollTo({
+        top: chatBox.scrollHeight,
+        behavior: 'smooth'
+      });
+    });
+  </script>
+</body>
+</html>
