@@ -13,12 +13,8 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: 
-    radial-gradient(circle at 20% 50%, #8DDA99, transparent 30%),
-    radial-gradient(circle at 80% 30%, #6CA775, transparent 30%),
-    radial-gradient(circle at 50% 80%, #54825B, transparent 30%),
-    linear-gradient(#4B7451, #3D6343);
-  background-blend-mode: multiply;
+  background-image: url(/static/Untitled\ design.png);
+  background-size:cover;
   z-index: -1;
 }
 
@@ -56,26 +52,26 @@ h1, h2, h3, .subtitle, button {
 }
 
 h1 {
-  font-size: 2.5rem;
+  font-size: 2.7rem;
   margin: 0.5rem 0;
-  color: #e3e3e3;
+  color: #224225;
   text-align: center;
 }
 
 .subtitle {
-  font-size: 1.5rem;
+  font-size: 1.7rem;
   margin: 0.5rem 0;
   text-align: center;
-  color: #e3e3e3;
+  color: #224225;
 }
 
 .desc {
   font-family: Arial, sans-serif;
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   margin: 1.5rem 0;
   line-height: 1.6;
   text-align: center;
-  color: #e3e3e3;
+  color: #365a39;
 }
 
 /* Divider */
@@ -187,7 +183,7 @@ form {
   width: 100%;
   margin-top: auto;
   padding-top: 1rem;
-  background: linear-gradient(to top, #3D6343 50%, transparent);
+  background: transparent;
   position: sticky;
   bottom: 0;
 }
